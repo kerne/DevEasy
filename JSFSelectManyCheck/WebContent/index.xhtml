@@ -2,18 +2,35 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 
-<f:loadBundle basename="resources.application" var="msg"/>
+
 
 <head>
-    <title><h:outputText value="#{msg.welcomeTitle}" /></title>
+
 </head>
 
-<body>
-<h3><h:outputText value="#{msg.welcomeHeading}" /></h3>
-<p><h:outputText value="#{msg.welcomeMessage}" /></p>
-</body>
+<h:body>
+	<h:form id="form" prependId="false">
+		<h:dataTable id="table" value="#{manyCheck.list}" var="item">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Nombre" />
+				</f:facet>
+				<h:selectManyCheckbox id="check"
+					valueChangeListener="#{manyCheck.selected}">
+					<f:selectItem itemLabel="#{item.nombre}" itemValue="#{item.id}">
+					</f:selectItem>
+				</h:selectManyCheckbox>
+			</h:column>
+			<h:column>
+				<f:facet name="footer">
+					<h:commandLink value="Eliminar" action="#{manyCheck.deleted}" />
+				</f:facet>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
 </html>
